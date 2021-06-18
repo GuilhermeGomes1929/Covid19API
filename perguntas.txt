@@ -1,0 +1,47 @@
+Qual bairro você mora? 1
+District -
+Qual a sua profissão? 1
+Occupation -
+Quantas pessoas moram com você? (Responda 0 se mora sozinho) 2
+Integer -
+Elas frequentaram o mesmo ambiente que você? 2
+Boolean -
+Elas frequentaram outros lugares que você não frequentou? 2
+Boolean
+Alguma delas testou positivo para covid-19? 2
+Boolean
+Você foi ao supermercado uma semana antes de apresentar sintomas para covid-19? 3
+Boolean
+Você foi a farmácia uma semana antes de apresentar sintomas para covid-19? 3
+Boolean
+Você foi ao hospital uma semana antes de apresentar sintomas para covid-19? 3
+Boolean
+Você foi a outros lugares considerados serviços essenciais? 3
+Boolean
+Você foi a outros lugares que não são considerados essenciais? 3
+Boolean
+Você higieniza as compras? 4
+Boolean
+Você consome serviços de delivery com frequência? 1
+Boolean
+Você trabalha na sua cidade? 5
+Boolean
+Seu trabalho possui políticas contra a disseminação do vírus? 5
+Boolean
+Elas são seguidas a risca? 5
+Boolean
+Você utiliza transporte público com frequência(de 3 a 7 dias por semana)? 6
+Boolean
+Você cumprimenta as pessoas na rua? 4
+Boolean
+Frequentou algum local com aglomeração(mercados lotados, festas, eventos)? 3
+Boolean
+
+Categorias das perguntas:
+
+1- Perguntas sobre você;
+2- Perguntas sobre o convívio em casa;
+3- Perguntas sobre o dia-a-dia fora de casa;
+4- Perguntas sobre higiene;
+5- Perguntas sobre o trabalho;
+6- Perguntas sobre o transporte.
