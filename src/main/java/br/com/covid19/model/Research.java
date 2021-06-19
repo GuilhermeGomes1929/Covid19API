@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Research {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
