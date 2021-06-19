@@ -1,11 +1,15 @@
 package br.com.covid19.service;
 
 import br.com.covid19.exceptions.ResearchException;
+import br.com.covid19.model.District;
+import br.com.covid19.model.Occupation;
 import br.com.covid19.model.Research;
+import br.com.covid19.repository.CustomRepository;
 import br.com.covid19.repository.ResearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,9 @@ public class ResearchService {
 
     @Autowired
     ResearchRepository researchRepository;
+
+    @Autowired
+    CustomRepository repository;
 
     public List<Research> listResearchs(){
         List<Research> researchList = researchRepository.findAll();
@@ -33,12 +40,11 @@ public class ResearchService {
     }
 
     public Research registerNewResearch(Research research){
-        if (research.getP1() == null){
-            throw new ResearchException();
-        }else if (researchRepository.save(research).getP1()==null){
+        try{
+            return researchRepository.save(research);
+        }catch(Exception e){
             throw new ResearchException();
         }
-        return researchRepository.save(research);
     }
 
     public Research deleteResearch(Long id){
@@ -48,6 +54,20 @@ public class ResearchService {
         }
         researchRepository.deleteById(id);
         return optionalResearch.get();
+    }
+
+    public List<Research> test(){
+        Research research = new Research(6L, new District(1, "hello"), new Occupation(1, "ola"),
+                2,true, true, true,null,null,null,null,null,null,null,null,null,null,null,null,null);
+        ArrayList<String> string = new ArrayList<String>();
+        string.add("p1");
+        string.add("p2");
+        string.add("p3");
+        string.add("p4");
+        string.add("p5");
+        string.add("p6");
+
+        return repository.find(string, research);
     }
 
 }

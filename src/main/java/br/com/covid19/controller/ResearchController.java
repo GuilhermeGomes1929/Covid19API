@@ -62,4 +62,9 @@ public class ResearchController {
         }
     }
 
+    @GetMapping("/test")
+    public List<Research> test(){
+        return service.test();
+    }
+
 }
