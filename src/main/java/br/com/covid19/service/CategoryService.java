@@ -34,22 +34,4 @@ public class CategoryService {
         return optionalCategory.get();
     }
 
-    public Category registerNewCategory(Category category) {
-        if (category.getName() == null){
-            throw new CategoryException();
-        }else if(categoryRepository.save(category).getName() == null){
-            throw new CategoryException();
-        }
-        return categoryRepository.save(category);
-    }
-
-    public Category deleteCategory(Integer id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isEmpty()){
-            throw new CategoryException();
-        }
-        categoryRepository.deleteById(id);
-        return category.get();
-    }
-
 }

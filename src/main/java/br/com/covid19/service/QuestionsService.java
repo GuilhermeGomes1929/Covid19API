@@ -31,22 +31,4 @@ public class QuestionsService {
         return optionalQuestions.get();
     }
 
-    public Questions registerNewQuestion(Questions questions) {
-        if (questions.getSentence() == null){
-            throw new QuestionsException();
-        }else if(questionsRepository.save(questions).getSentence() == null){
-            throw new QuestionsException();
-        }
-        return questionsRepository.save(questions);
-    }
-
-    public Questions deleteQuestions(Integer id) {
-        Optional<Questions> questions = questionsRepository.findById(id);
-        if (questions.isEmpty()){
-            throw new QuestionsException();
-        }
-        questionsRepository.deleteById(id);
-        return questions.get();
-    }
-
 }

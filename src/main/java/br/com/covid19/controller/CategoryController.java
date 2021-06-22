@@ -35,32 +35,5 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/register")
-    public Category registerNewCategory(@RequestBody Category category){
-        try {
-            return service.registerNewCategory(category);
-        }catch (CategoryException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Não foi possível cadastrar a categoria.");
-        }
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public Category deleteCategory(@PathVariable Integer id) {
-        try{
-            return service.deleteCategory(id);
-        }catch (CategoryException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Categoria não encontrada.");
-        }
-    }
-
-    @PutMapping("/edit")
-    public Category editCategory(@RequestBody Category category){
-        try{
-            return service.registerNewCategory(category);
-        }catch (CategoryException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Categoria não encontrada");
-        }
-    }
-
 }
 

@@ -37,32 +37,5 @@ public class QuestionsController {
         }
     }
 
-    @PostMapping("/register")
-    public Questions registerNewQuestion(@RequestBody Questions questions){
-        try {
-            return service.registerNewQuestion(questions);
-        }catch (QuestionsException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Não foi possível cadastrar a questão.");
-        }
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public Questions deleteQuestions(@PathVariable Integer id) {
-        try{
-            return service.deleteQuestions(id);
-        }catch (QuestionsException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Questão não encontrada.");
-        }
-    }
-
-    @PutMapping("/edit")
-    public Questions editQuestion(@RequestBody Questions questions){
-        try{
-            return service.registerNewQuestion(questions);
-        }catch (QuestionsException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Questão não encontrada");
-        }
-    }
-
 }
 
