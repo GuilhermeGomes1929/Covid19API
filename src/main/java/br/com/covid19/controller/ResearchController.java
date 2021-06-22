@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -62,9 +64,45 @@ public class ResearchController {
         }
     }
 
-    @GetMapping("/test")
-    public List<Research> test(){
-        return service.test();
+    @GetMapping("/filter/count")
+    public Integer getCountOfResearchEquals(@RequestBody Research research){
+        try{
+            return service.getCountOfSimilarResearchs(research);
+        }catch (ResearchException e){ throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pesquisa enviada é nula.");}
     }
 
+    @GetMapping("/filter/cascade")
+    public HashMap getCascadeCount(@RequestBody Research research){
+        try{
+            return service.getCascadeCount(research);
+        }catch (ResearchException e){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pesquisa enviada é nula.");}
+    }
+
+    @GetMapping("/filter/research")
+    public List<Research> getSimilarResearch(@RequestBody Research research){
+        try {
+            return service.getSimilarResearchs(research);
+        }catch (ResearchException e ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existem pesquisas similares a essa.");
+        }
+    }
+
+    @GetMapping("/filter/percentage")
+    public HashMap getPercentageOfResearchEquals(@RequestBody Research research){
+        try{
+            return service.getPercentageByResearch(research);
+        }catch (ResearchException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existem pesquisas similares a essa.");
+        }
+    }
+
+    @GetMapping("/filter/cascade/percentage")
+    public HashMap getCascadePercentage(@RequestBody Research research){
+        try {
+            return service.getCascadePercentage(research);
+        }catch (ResearchException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A pesquisa enviada é nula.");
+        }
+    }
 }
+
