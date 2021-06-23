@@ -22,7 +22,7 @@ public class OccupationController {
         try {
             return occupationService.listOfOccupation();
         }catch (OccupationException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há profissões cadastradas.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -31,16 +31,16 @@ public class OccupationController {
         try {
             return occupationService.findOccupation(id);
         }catch (OccupationException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profissão não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @PostMapping("/register")
     public Occupation registerNewOccupation(@RequestBody Occupation occupation){
         try {
-            return occupationService.registerNewOccupation(occupation);
+            return occupationService.registerNewOccupation(occupation, occupationService.POST);
         }catch (OccupationException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível cadastrar a profissão.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -49,16 +49,16 @@ public class OccupationController {
         try {
             return occupationService.deleteOccupation(id);
         }catch (OccupationException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profissão não encontrada");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @PutMapping("/edit")
     public Occupation editOccupation(@RequestBody Occupation occupation){
         try {
-            return occupationService.registerNewOccupation(occupation);
+            return occupationService.registerNewOccupation(occupation, occupationService.PUT);
         }catch (OccupationException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profissão não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 

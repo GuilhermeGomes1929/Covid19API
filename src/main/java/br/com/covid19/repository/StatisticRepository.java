@@ -202,6 +202,10 @@ public class StatisticRepository {
         String query = "SELECT R FROM Research as R ";
         String condition = "WHERE";
 
+        if (questionList.isEmpty()){
+            return null;
+        }
+
         for (int i = 0; i < questionList.size(); i++){
 
             query += condition + " R."+questionList.get(i)+" = :"+questionList.get(i);
@@ -276,6 +280,9 @@ public class StatisticRepository {
 
     //This method returns the percentage of researchs similar to what you sent.
     public HashMap getPercentageByResearch(Research research, ArrayList<String> questionList){
+        if (questionList.isEmpty()){
+            return null;
+        }
         Query query = manager.createQuery("SELECT COUNT(R) FROM Research as R");
         Float totalOfResearchs = Float.valueOf(query.getSingleResult().toString());
         Float countOfResearchs = Float.valueOf(getCountByResearch(research, questionList));
@@ -291,6 +298,9 @@ public class StatisticRepository {
 
     //This method works like the getCascadeCountByResearch method, but it returns the percentage, not the count.
     public HashMap getCascadePercentage(Research research, ArrayList<String> cascadeCountKeys){
+        if (cascadeCountKeys.isEmpty()){
+            return null;
+        }
         HashMap cascadeCount = getCascadeCountByResearch(research, cascadeCountKeys);
 
         HashMap response = new HashMap();

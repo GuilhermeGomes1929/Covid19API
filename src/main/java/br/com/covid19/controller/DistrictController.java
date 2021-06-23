@@ -22,7 +22,7 @@ public class DistrictController {
         try{
             return service.listOfDistricts();
         }catch (DistrictException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Não há bairro cadastrados.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
@@ -31,16 +31,16 @@ public class DistrictController {
         try{
             return service.findDistrict(id);
         }catch (DistrictException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Bairro não encontrado.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
     @PostMapping("/register")
     public District registerNewDistrict(@RequestBody District district){
         try{
-            return service.registerNewDistrict(district);
+            return service.registerNewDistrict(district, service.POST);
         }catch (DistrictException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Não foi possível cadastrar o bairro.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
     }
 
@@ -49,16 +49,16 @@ public class DistrictController {
         try{
             return service.deleteDistrict(id);
         }catch (DistrictException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Bairro não encontrado.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
     @PutMapping("/edit")
     public District editDistrict(@RequestBody District district){
         try{
-            return service.registerNewDistrict(district);
+            return service.registerNewDistrict(district, service.PUT);
         }catch (DistrictException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Bairro não encontrado");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 

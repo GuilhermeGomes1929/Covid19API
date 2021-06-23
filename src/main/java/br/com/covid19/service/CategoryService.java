@@ -21,7 +21,7 @@ public class CategoryService {
     public List<Category> listOfCategories(){
         List<Category> categoryList = categoryRepository.findAll();
         if (categoryList.isEmpty()){
-            throw new CategoryException();
+            throw new CategoryException("Não há categorias cadastradas no banco de dados.");
         }
         return categoryRepository.findAll();
     }
@@ -29,7 +29,7 @@ public class CategoryService {
     public Category findCategory(Integer id) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         if (optionalCategory.isEmpty()){
-            throw new CategoryException();
+            throw new CategoryException("Categoria de id "+id+" não encontrada.");
         }
         return optionalCategory.get();
     }

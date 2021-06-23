@@ -18,7 +18,7 @@ public class QuestionsService {
     public List<Questions> listOfQuestions(){
         List<Questions> questionsList = questionsRepository.findAll();
         if (questionsList.isEmpty()){
-            throw new QuestionsException();
+            throw new QuestionsException("Não há perguntas cadastradas no banco de dados.");
         }
         return questionsList;
     }
@@ -26,7 +26,7 @@ public class QuestionsService {
     public Questions findQuestions(Integer id) {
         Optional<Questions> optionalQuestions = questionsRepository.findById(id);
         if (optionalQuestions.isEmpty()){
-            throw new QuestionsException();
+            throw new QuestionsException("Pergunta de id "+id+" não encontrada.");
         }
         return optionalQuestions.get();
     }

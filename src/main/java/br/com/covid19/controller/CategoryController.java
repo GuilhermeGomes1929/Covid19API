@@ -22,7 +22,7 @@ public class CategoryController {
         try{
             return service.listOfCategories();
         }catch (CategoryException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Não há categorias cadastradas.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
@@ -31,7 +31,7 @@ public class CategoryController {
         try{
             return service.findCategory(id);
         }catch (CategoryException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Categoria não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 

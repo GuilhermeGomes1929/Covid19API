@@ -24,7 +24,7 @@ public class ResearchController {
         try{
             return service.listResearchs();
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há pesquisas cadastradas.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -33,16 +33,16 @@ public class ResearchController {
         try{
             return service.findResearch(id);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pesquisa não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @PostMapping("/register")
     public Research registerNewResearch(@RequestBody Research research){
         try{
-            return service.registerNewResearch(research);
+            return service.registerNewResearch(research, service.POST);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível cadastrar a pesquisa.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -51,31 +51,31 @@ public class ResearchController {
         try{
             return service.deleteResearch(id);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pesquisa não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @PutMapping("/edit")
     public Research editResearch(@RequestBody Research research){
         try{
-            return service.registerNewResearch(research);
+            return service.registerNewResearch(research, service.PUT);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível editar a pesquisa.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @GetMapping("/filter/count")
-    public Integer getCountOfResearchEquals(@RequestBody Research research){
+    public HashMap getCountOfResearchEquals(@RequestBody Research research){
         try{
             return service.getCountOfSimilarResearchs(research);
-        }catch (ResearchException e){ throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pesquisa enviada é nula.");}
+        }catch (ResearchException e){ throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());}
     }
 
     @GetMapping("/filter/cascade")
     public HashMap getCascadeCount(@RequestBody Research research){
         try{
             return service.getCascadeCount(research);
-        }catch (ResearchException e){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pesquisa enviada é nula.");}
+        }catch (ResearchException e){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());}
     }
 
     @GetMapping("/filter/research")
@@ -83,7 +83,7 @@ public class ResearchController {
         try {
             return service.getSimilarResearchs(research);
         }catch (ResearchException e ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existem pesquisas similares a essa.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -92,16 +92,16 @@ public class ResearchController {
         try{
             return service.getPercentageByResearch(research);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existem pesquisas similares a essa.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    @GetMapping("/filter/cascade/percentage")
+    @GetMapping("/filter/cascade-percentage")
     public HashMap getCascadePercentage(@RequestBody Research research){
         try {
             return service.getCascadePercentage(research);
         }catch (ResearchException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A pesquisa enviada é nula.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }

@@ -24,7 +24,7 @@ public class QuestionsController {
         try{
             return service.listOfQuestions();
         }catch (QuestionsException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Não há questões cadastradas.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
@@ -33,7 +33,7 @@ public class QuestionsController {
         try{
             return service.findQuestions(id);
         }catch (QuestionsException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Questão não encontrada.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
