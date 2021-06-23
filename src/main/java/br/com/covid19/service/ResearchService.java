@@ -1,6 +1,7 @@
 package br.com.covid19.service;
 
 import br.com.covid19.exceptions.ResearchException;
+import br.com.covid19.model.PriorityOrder;
 import br.com.covid19.model.Research;
 import br.com.covid19.repository.StatisticRepository;
 import br.com.covid19.repository.ResearchRepository;
@@ -112,13 +113,13 @@ public class ResearchService {
         }
     }
 
-    public HashMap getCascadeCount(Research research){
+    public HashMap getCascadeCount(PriorityOrder research){
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
-        }else if(repository.getCascadeCountByResearch(research, createStringList(research)) == null){
+        }else if(repository.getCascadeCountByResearch(research) == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            HashMap cascade = repository.getCascadeCountByResearch(research, createStringList(research));
+            HashMap cascade = repository.getCascadeCountByResearch(research);
             return cascade;
         }
     }
@@ -147,11 +148,11 @@ public class ResearchService {
         }
     }
 
-    public HashMap getCascadePercentage(Research research){
+    public HashMap getCascadePercentage(PriorityOrder research){
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            HashMap response = repository.getCascadePercentage(research, createStringList(research));
+            HashMap response = repository.getCascadePercentage(research);
             if (response == null){
                 throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
             }

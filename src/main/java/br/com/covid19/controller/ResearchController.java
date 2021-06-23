@@ -1,6 +1,7 @@
 package br.com.covid19.controller;
 
 import br.com.covid19.exceptions.ResearchException;
+import br.com.covid19.model.PriorityOrder;
 import br.com.covid19.model.Research;
 import br.com.covid19.service.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class ResearchController {
     }
 
     @GetMapping("/filter/cascade")
-    public HashMap getCascadeCount(@RequestBody Research research){
+    public HashMap getCascadeCount(@RequestBody PriorityOrder research){
         try{
             return service.getCascadeCount(research);
         }catch (ResearchException e){throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());}
@@ -97,7 +98,7 @@ public class ResearchController {
     }
 
     @GetMapping("/filter/cascade-percentage")
-    public HashMap getCascadePercentage(@RequestBody Research research){
+    public HashMap getCascadePercentage(@RequestBody PriorityOrder research){
         try {
             return service.getCascadePercentage(research);
         }catch (ResearchException e){
