@@ -1,6 +1,10 @@
 package br.com.covid19.model;
 
 import javax.persistence.*;
+import java.lang.reflect.Method;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.HashMap;
 
 @Entity
 public class Research {
@@ -8,16 +12,14 @@ public class Research {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
+    @Column(nullable = false)
+    private Timestamp research_date;
     @ManyToOne
     @JoinColumn(nullable = false)
     private District p1;
-
     @ManyToOne
     @JoinColumn(nullable = false)
     private Occupation p2;
-
     @Column(nullable = false)
     private Integer p3;
     @Column(nullable = false)
@@ -56,8 +58,9 @@ public class Research {
     public Research() {
     }
 
-    public Research(Long id, District p1, Occupation p2, Integer p3, Boolean p4, Boolean p5, Boolean p6, Boolean p7, Boolean p8, Boolean p9, Boolean p10, Boolean p11, Boolean p12, Boolean p13, Boolean p14, Boolean p15, Boolean p16, Boolean p17, Boolean p18, Boolean p19) {
+    public Research(Long id,Timestamp research_date, District p1, Occupation p2, Integer p3, Boolean p4, Boolean p5, Boolean p6, Boolean p7, Boolean p8, Boolean p9, Boolean p10, Boolean p11, Boolean p12, Boolean p13, Boolean p14, Boolean p15, Boolean p16, Boolean p17, Boolean p18, Boolean p19) {
         this.id = id;
+        this.research_date = research_date;
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
@@ -77,10 +80,16 @@ public class Research {
         this.p17 = p17;
         this.p18 = p18;
         this.p19 = p19;
+
     }
+    
 
     public Long getId() {
         return id;
+    }
+
+    public Timestamp getResearch_date() {
+        return research_date;
     }
 
     public District getP1() {
