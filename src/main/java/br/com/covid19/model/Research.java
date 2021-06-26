@@ -1,5 +1,7 @@
 package br.com.covid19.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.lang.reflect.Method;
 import java.sql.Date;
@@ -13,6 +15,7 @@ public class Research {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Timestamp research_date;
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -82,7 +85,72 @@ public class Research {
         this.p19 = p19;
 
     }
-    
+
+    public HashMap getHashMap(){
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        if (p1 != null){
+            hashMap.put("p1", this.p1);
+        }
+        if (p2 != null){
+            hashMap.put("p2", this.p1);
+        }
+        if (p3 != null){
+            hashMap.put("p3", this.p1);
+        }
+        if (p4 != null){
+            hashMap.put("p4", this.p4);
+        }
+        if (p5 != null){
+            hashMap.put("p5", this.p5);
+        }
+        if (p6 != null){
+            hashMap.put("p6", this.p6);
+        }
+        if (p7 != null){
+            hashMap.put("p7", this.p7);
+        }
+        if (p8 != null){
+            hashMap.put("p8", this.p8);
+        }
+        if (p9 != null){
+            hashMap.put("p9", this.p9);
+        }
+        if (p10 != null){
+            hashMap.put("p10", this.p10);
+        }
+        if (p11 != null){
+            hashMap.put("p11", this.p11);
+        }
+        if (p12 != null){
+            hashMap.put("p12", this.p12);
+        }
+
+        if (p13 != null){
+            hashMap.put("p13", this.p13);
+        }
+
+        if (p14 != null){
+            hashMap.put("p14", this.p14);
+        }
+        if (p15 != null){
+            hashMap.put("p15", this.p15);
+        }
+        if (p16 != null){
+            hashMap.put("p16", this.p16);
+        }
+        if (p17 != null){
+            hashMap.put("p17", this.p17);
+        }
+        if (p18 != null){
+            hashMap.put("p18", this.p18);
+        }
+        if (p19 != null) {
+            hashMap.put("p19", this.p19);
+        }
+
+        return hashMap;
+    }
+
 
     public Long getId() {
         return id;

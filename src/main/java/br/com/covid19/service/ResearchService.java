@@ -26,32 +26,6 @@ public class ResearchService {
     @Autowired
     StatisticRepository repository;
 
-    public ArrayList<String> createStringList(Research research){
-        ArrayList<String> stringList = new ArrayList<String>();
-
-        if (research.getP1() != null){ stringList.add("p1"); }
-        if (research.getP2() != null){ stringList.add("p2"); }
-        if (research.getP3() != null){ stringList.add("p3");}
-        if (research.getP4() != null){ stringList.add("p4");}
-        if (research.getP5() != null){ stringList.add("p5");}
-        if (research.getP6() != null){ stringList.add("p6");}
-        if (research.getP7() != null){ stringList.add("p7");}
-        if (research.getP8() != null){ stringList.add("p8");}
-        if (research.getP9() != null){ stringList.add("p9");}
-        if (research.getP10() != null){ stringList.add("p10");}
-        if (research.getP11() != null){ stringList.add("p11");}
-        if (research.getP12() != null){ stringList.add("p12");}
-        if (research.getP13() != null){ stringList.add("p13");}
-        if (research.getP14() != null){ stringList.add("p14");}
-        if (research.getP15() != null){ stringList.add("p15");}
-        if (research.getP16() != null){ stringList.add("p16");}
-        if (research.getP17() != null){ stringList.add("p17");}
-        if (research.getP18() != null){ stringList.add("p18");}
-        if (research.getP19() != null){ stringList.add("p19");}
-
-        return stringList;
-    }
-
     public List<Research> listResearchs(){
         List<Research> researchList = researchRepository.findAll();
         if (researchList.isEmpty()){
@@ -104,11 +78,11 @@ public class ResearchService {
     public HashMap getCountOfSimilarResearchs(Research research){
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
-        }else if(repository.getCountByResearch(research, createStringList(research)) == null){
+        }else if(repository.getCountByResearch(research) == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
             HashMap response = new HashMap();
-            response.put("total", Integer.valueOf(repository.getCountByResearch(research, createStringList(research))));
+            response.put("total", Integer.valueOf(repository.getCountByResearch(research)));
             return response;
         }
     }
@@ -128,7 +102,7 @@ public class ResearchService {
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            List<Research> response = repository.getResearchsByExample(research, createStringList(research));
+            List<Research> response = repository.getResearchsByExample(research);
             if (response == null){
                 throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
             }
@@ -140,7 +114,7 @@ public class ResearchService {
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            HashMap response = repository.getPercentageByResearch(research, createStringList(research));
+            HashMap response = repository.getPercentageByResearch(research);
             if (response == null){
                 throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida");
             }
