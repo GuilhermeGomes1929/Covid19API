@@ -114,24 +114,44 @@ public class ResearchService {
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            HashMap response = repository.getPercentageByResearch(research);
-            if (response == null){
-                throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida");
-            }
+            Float total = Float.valueOf(repository.getAllResearchCount());
+            Float count = Float.valueOf(repository.getCountByResearch(research));
+            Float percentage = (count * 100) / total;
+
+            HashMap response = new HashMap();
+            response.put("total", total);
+            response.put("count", count);
+            response.put("percentage", percentage);
+
             return response;
         }
     }
 
+
+    //This method works like the getCascadeCountByResearch method, but it returns the percentage, not the count.
     public HashMap getCascadePercentage(PriorityOrder research){
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            HashMap response = repository.getCascadePercentage(research);
-            if (response == null){
+            if (research.getPriority().isEmpty()){
                 throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
             }
+            HashMap cascadeCount = repository.getCascadeCountByResearch(research);
+            HashMap response = new HashMap();
+
+            Float total = Float.valueOf(cascadeCount.get("total").toString());
+            response.put("total", cascadeCount.get("total"));
+
+            for (int i = 0; i < research.getPriority().size(); i++){
+                Float percentage = (Float.parseFloat(cascadeCount.get(research.getPriority().get(i)).toString()) * 100) / total;
+                response.put(research.getPriority().get(i), percentage);
+                total = Float.parseFloat(cascadeCount.get(research.getPriority().get(i)).toString());
+            }
             return response;
+
         }
+
+
     }
 
 }

@@ -112,44 +112,10 @@ public class StatisticRepository {
     }
 
     //This method returns the percentage of researchs similar to what you sent.
-    public HashMap getPercentageByResearch(Research research){
-
-        HashMap<String, Object> contentResearch = research.getHashMap();
-        if (contentResearch.isEmpty()){
-            return null;
-        }
+    public String getAllResearchCount(){
         Query query = manager.createQuery("SELECT COUNT(R) FROM Research as R");
-        Float totalOfResearchs = Float.valueOf(query.getSingleResult().toString());
-        Float countOfResearchs = Float.valueOf(getCountByResearch(research));
-        Float percentage = (countOfResearchs * 100) / totalOfResearchs;
-
-        HashMap response = new HashMap();
-        response.put("total", totalOfResearchs);
-        response.put("count", countOfResearchs);
-        response.put("percentage", percentage);
-
-        return response;
+        return query.getSingleResult().toString();
     }
 
-    //This method works like the getCascadeCountByResearch method, but it returns the percentage, not the count.
-    public HashMap getCascadePercentage(PriorityOrder research){
-        if (research.getPriority().isEmpty()){
-            return null;
-        }
-        HashMap cascadeCount = getCascadeCountByResearch(research);
-
-        HashMap response = new HashMap();
-
-
-        Float total = Float.valueOf(cascadeCount.get("total").toString());
-        response.put("total", cascadeCount.get("total"));
-
-        for (int i = 0; i < research.getPriority().size(); i++){
-            Float percentage = (Float.parseFloat(cascadeCount.get(research.getPriority().get(i)).toString()) * 100) / total;
-            response.put(research.getPriority().get(i), percentage);
-            total = Float.parseFloat(cascadeCount.get(research.getPriority().get(i)).toString());
-        }
-        return response;
-    }
 
 }
