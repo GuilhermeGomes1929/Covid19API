@@ -1,6 +1,7 @@
 package br.com.covid19.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.lang.reflect.Method;
@@ -86,6 +87,7 @@ public class Research {
 
     }
 
+    @JsonIgnore
     public HashMap getHashMap(){
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         if (p1 != null){
