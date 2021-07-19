@@ -1,6 +1,7 @@
 package br.com.covid19.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ public class JwtTokenUtil {
     public Claims getAllClaimsFromToken(String token){
         return Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
     }
+
 
     public String getUsernameFromToken(String token){
         return getAllClaimsFromToken(token).getSubject();

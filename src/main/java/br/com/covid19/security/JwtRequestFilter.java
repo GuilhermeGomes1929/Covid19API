@@ -38,9 +38,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try{
                 username = jwtTokenUtil.getUsernameFromToken(token);
             }catch (IllegalArgumentException e){
-                throw new RuntimeException("Token inválido.", e.getCause());
+                throw new IllegalArgumentException("Token inválido.", e.getCause());
             }catch (ExpiredJwtException e){
-                throw new RuntimeException("Token expirado.", e.getCause());
+                throw new ExpiredJwtException(null,
+                        null,
+                        "Token expirado.");
             }
 
         }
