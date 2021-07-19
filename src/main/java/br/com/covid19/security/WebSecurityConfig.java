@@ -43,9 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //Cross sire request forgery protection disabled
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/research/register", "/research/edit", "/research/delete",
-                        "/occupation/register", "/occupation/edit", "/occupation/delete/",
-                        "/district/register", "/district/edit", "/district/delete")
+                .antMatchers("/research/register", "/research/edit", "/research/delete/{id}",
+                        "/occupation/register", "/occupation/edit", "/occupation/delete/{id}",
+                        "/district/register", "/district/edit", "/district/delete/{id}")
                 .hasAuthority("ADMIN")
                 .anyRequest().permitAll()
                 .and()

@@ -1,8 +1,10 @@
 package br.com.covid19.security;
 
+import br.com.covid19.exceptions.InvalidUserOrPassException;
 import br.com.covid19.model.User;
 import br.com.covid19.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         Optional<User> user = userRepository.findByUsername(username);
 
 
-        if (user == null){ throw new UsernameNotFoundException("Usuário "+username+ " não encontrado.");}
+        if (user.isEmpty()){ throw new InvalidUserOrPassException();}
 
         UserDetails userDetails = org.springframework.security.core.userdetails.User
                 .withUsername(user.get().getUsername())
