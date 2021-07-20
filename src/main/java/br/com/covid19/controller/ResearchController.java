@@ -7,6 +7,7 @@ import br.com.covid19.service.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ResearchController {
     ResearchService service;
 
     @GetMapping("/")
-    public Page<Research> listResearchs(Pageable pageable){
+    public Page<Research> listResearchs(@PageableDefault Pageable pageable){
         try{
             return service.listResearchs(pageable);
         }catch (ResearchException e){
