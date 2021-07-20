@@ -7,6 +7,8 @@ import br.com.covid19.model.District;
 import br.com.covid19.repository.CategoryRepository;
 import br.com.covid19.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +20,12 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> listOfCategories(){
-        List<Category> categoryList = categoryRepository.findAll();
+    public Page<Category> listOfCategories(Pageable pageable){
+        Page<Category> categoryList = categoryRepository.findAll(pageable);
         if (categoryList.isEmpty()){
             throw new CategoryException("Não há categorias cadastradas no banco de dados.");
         }
-        return categoryRepository.findAll();
+        return categoryList;
     }
 
     public Category findCategory(Integer id) {

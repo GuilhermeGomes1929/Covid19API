@@ -4,6 +4,8 @@ import br.com.covid19.exceptions.DistrictException;
 import br.com.covid19.model.District;
 import br.com.covid19.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,18 +14,18 @@ import java.util.Optional;
 @Service
 public class DistrictService {
 
-    public static Integer POST = 1;
-    public static Integer PUT = 2;
+    public static final Integer POST = 1;
+    public static final Integer PUT = 2;
 
     @Autowired
     private DistrictRepository districtRepository;
 
-    public List<District> listOfDistricts(){
-        List<District> districtList = districtRepository.findAll();
+    public Page<District> listOfDistricts(Pageable pageable){
+        Page<District> districtList = districtRepository.findAll(pageable);
         if (districtList.isEmpty()){
             throw new DistrictException("Não há bairros cadastrados no banco de dados.");
         }
-        return districtRepository.findAll();
+        return districtList;
     }
 
     public District findDistrict(Integer id) {

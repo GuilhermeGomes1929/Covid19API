@@ -40,9 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }catch (IllegalArgumentException e){
                 throw new IllegalArgumentException("Token inválido.", e.getCause());
             }catch (ExpiredJwtException e){
-                throw new ExpiredJwtException(null,
-                        null,
-                        "Token expirado.");
+                throw new ExpiredJwtException(null, null, "Token expirado.");
             }
 
         }

@@ -4,6 +4,8 @@ import br.com.covid19.exceptions.QuestionsException;
 import br.com.covid19.model.Questions;
 import br.com.covid19.repository.QuestionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class QuestionsService {
     @Autowired
     private QuestionsRepository questionsRepository;
 
-    public List<Questions> listOfQuestions(){
-        List<Questions> questionsList = questionsRepository.findAll();
+    public Page<Questions> listOfQuestions(Pageable pageable){
+        Page<Questions> questionsList = questionsRepository.findAll(pageable);
         if (questionsList.isEmpty()){
             throw new QuestionsException("Não há perguntas cadastradas no banco de dados.");
         }

@@ -6,6 +6,10 @@ import br.com.covid19.model.Research;
 import br.com.covid19.repository.StatisticRepository;
 import br.com.covid19.repository.ResearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,8 +30,8 @@ public class ResearchService {
     @Autowired
     StatisticRepository repository;
 
-    public List<Research> listResearchs(){
-        List<Research> researchList = researchRepository.findAll();
+    public Page<Research> listResearchs(Pageable pageable){
+        Page<Research> researchList = researchRepository.findAll(pageable);
         if (researchList.isEmpty()){
             throw new ResearchException("Não há pesquisas cadastradas.");
         }
@@ -98,14 +102,12 @@ public class ResearchService {
         }
     }
 
-    public List<Research> getSimilarResearchs(Research research){
+    public Page<Research> getSimilarResearchs(Research research, Pageable pageable){
         if (research == null){
             throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
         }else{
-            List<Research> response = repository.getResearchsByExample(research);
-            if (response == null){
-                throw new ResearchException("Pesquisa nula. Especifique uma pesquisa válida.");
-            }
+            Page<Research> response = researchRepository.findAll(Example.of(research), pageable);
+
             return response;
         }
     }

@@ -4,6 +4,8 @@ import br.com.covid19.exceptions.OccupationException;
 import br.com.covid19.model.Occupation;
 import br.com.covid19.service.OccupationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,9 +20,9 @@ public class OccupationController {
     OccupationService occupationService;
 
     @GetMapping("/")
-    public List<Occupation> listOfOccupation(){
+    public Page<Occupation> listOfOccupation(Pageable pageable){
         try {
-            return occupationService.listOfOccupation();
+            return occupationService.listOfOccupation(pageable);
         }catch (OccupationException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

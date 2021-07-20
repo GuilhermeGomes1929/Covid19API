@@ -6,6 +6,8 @@ import br.com.covid19.model.Questions;
 
 import br.com.covid19.service.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,9 +22,9 @@ public class QuestionsController {
     QuestionsService service;
 
     @GetMapping("/")
-    public List<Questions> listOfQuestions(){
+    public Page<Questions> listOfQuestions(Pageable pageable){
         try{
-            return service.listOfQuestions();
+            return service.listOfQuestions(pageable);
         }catch (QuestionsException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }

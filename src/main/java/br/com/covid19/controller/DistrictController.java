@@ -4,6 +4,8 @@ import br.com.covid19.exceptions.DistrictException;
 import br.com.covid19.model.District;
 import br.com.covid19.service.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,9 +20,9 @@ public class DistrictController {
     DistrictService service;
 
     @GetMapping("/")
-    public List<District> listOfDisctricts(){
+    public Page<District> listOfDisctricts(Pageable pageable){
         try{
-            return service.listOfDistricts();
+            return service.listOfDistricts(pageable);
         }catch (DistrictException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }

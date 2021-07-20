@@ -5,6 +5,8 @@ import br.com.covid19.model.PriorityOrder;
 import br.com.covid19.model.Research;
 import br.com.covid19.service.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +24,9 @@ public class ResearchController {
     ResearchService service;
 
     @GetMapping("/")
-    public List<Research> listResearchs(){
+    public Page<Research> listResearchs(Pageable pageable){
         try{
-            return service.listResearchs();
+            return service.listResearchs(pageable);
         }catch (ResearchException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
@@ -81,9 +83,9 @@ public class ResearchController {
     }
 
     @GetMapping("/filter/research")
-    public List<Research> getSimilarResearch(@RequestBody Research research){
+    public Page<Research> getSimilarResearch(@RequestBody Research research, Pageable pageable){
         try {
-            return service.getSimilarResearchs(research);
+            return service.getSimilarResearchs(research, pageable);
         }catch (ResearchException e ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

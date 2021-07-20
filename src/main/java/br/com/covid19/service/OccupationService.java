@@ -4,6 +4,8 @@ import br.com.covid19.exceptions.OccupationException;
 import br.com.covid19.model.Occupation;
 import br.com.covid19.repository.OccupationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +14,14 @@ import java.util.Optional;
 @Service
 public class OccupationService {
 
-    public static Integer POST = 1;
-    public static Integer PUT = 2;
+    public static final Integer POST = 1;
+    public static final Integer PUT = 2;
 
     @Autowired
     OccupationRepository occupationRepository;
 
-    public List<Occupation> listOfOccupation(){
-        List<Occupation> occupationList = occupationRepository.findAll();
+    public Page<Occupation> listOfOccupation(Pageable pageable){
+        Page<Occupation> occupationList = occupationRepository.findAll(pageable);
         if (occupationList.isEmpty()){
             throw new OccupationException("Não há profissões cadastradas no banco de dados.");
         }
